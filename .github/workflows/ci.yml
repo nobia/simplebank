@@ -42,7 +42,7 @@ jobs:
 
       - name: Install migrate
         run: |
-          version='v4.15.2' curl -L https://github.com/golang-migrate/migrate/releases/download/${version}/migrate.linux-amd64.tar.gz | tar xvz
+          version='v4.15.2'; curl -L https://github.com/golang-migrate/migrate/releases/download/${version}/migrate.linux-amd64.tar.gz | tar xvz
           sudo mv migrate.linux-amd64 /usr/bin/migrate
 
       - name: Migrate
@@ -52,7 +52,7 @@ jobs:
 
       - name: Install sqlc
         run: |
-          version='1.15.0' curl -L https://github.com/kyleconroy/sqlc/releases/download/v${version}/sqlc_${version}_linux_amd64.tar.gz | tar xvz
+          version='1.15.0'; curl -L https://github.com/kyleconroy/sqlc/releases/download/v${version}/sqlc_${version}_linux_amd64.tar.gz | tar xvz
           sudo mv sqlc /usr/bin/sqlc
 
       - name: sqlc
