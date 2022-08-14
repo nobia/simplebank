@@ -46,9 +46,7 @@ jobs:
           sudo mv migrate /usr/bin/migrate
 
       - name: Migrate
-        run: |
-          make createdb
-          make migrateup
+        run: make migrateup
 
       - name: Install sqlc
         run: |
