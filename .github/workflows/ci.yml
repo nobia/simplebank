@@ -1,0 +1,62 @@
+name: ci-test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+    name: Test
+    runs-on: ubuntu-latest
+
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres:14.5-alpine
+        env:
+          POSTGRES_USER: u1
+          POSTGRES_PASSWORD: pass1
+          POSTGRES_DB: simple_bank
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: '^1.19'
+
+      - name: Install migrate
+        run: |
+          version='v4.15.2' curl -L https://github.com/golang-migrate/migrate/releases/download/${version}/migrate.linux-amd64.tar.gz | tar xvz
+          sudo mv migrate.linux-amd64 /usr/bin/migrate
+
+      - name: Migrate
+        run: |
+          make createdb
+          make migrateup
+
+      - name: Install sqlc
+        run: |
+          version='1.15.0' curl -L https://github.com/kyleconroy/sqlc/releases/download/v${version}/sqlc_${version}_linux_amd64.tar.gz | tar xvz
+          sudo mv sqlc /usr/bin/sqlc
+
+      - name: sqlc
+        run: make sqlc
+
+      - name: Test
+        run: make test
