@@ -2,9 +2,10 @@ package db
 
 import (
 	"context"
-	"simplebank/util"
 	"testing"
 	"time"
+
+	"github.com/nobia/simplebank/util"
 
 	"github.com/stretchr/testify/require"
 )
