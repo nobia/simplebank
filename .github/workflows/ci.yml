@@ -56,5 +56,11 @@ jobs:
       - name: sqlc
         run: make sqlc
 
+      - name: Install mockgen
+        run: go install github.com/golang/mock/mockgen@v1.6.0
+
+      - name: Generate mock
+        run: make mockgen
+
       - name: Test
         run: make test
