@@ -10,10 +10,11 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/golang/mock/gomock"
 	mockdb "github.com/nobia/simplebank/db/mock"
 	db "github.com/nobia/simplebank/db/sqlc"
 	"github.com/nobia/simplebank/util"
+
+	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 )
 
