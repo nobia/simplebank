@@ -18,6 +18,8 @@ sqlc:
 	sqlc generate
 
 test:
+	go test ./...
+testv:
 	go test -v -cover ./...
 
 server:
@@ -26,4 +28,4 @@ server:
 mockgen:
 	mockgen -package mockdb -destination db/mock/store.go github.com/nobia/simplebank/db/sqlc Store
 
-.PHONY: postgres createdb dropdb migrateup migratedown migrateup1 migratedown1 sqlc server mockgen
+.PHONY: postgres createdb dropdb migrateup migratedown migrateup1 migratedown1 sqlc test testv server mockgen
